@@ -1,17 +1,47 @@
-# toolbox-export
+# toolbox-export (fork)
+
+⚠️ This is a fork of https://github.com/mrvladus/toolbox-export
+
+This fork adds proper display (X11 / Wayland) environment handling
+for exported applications by introducing a wrapper launcher.
+
+## Why this fork exists
+
+The original `toolbox-export` generates `.desktop` files that call
+`toolbox run -c <container> <app>` directly.
+
+On some systems this does not work correctly for GUI applications,
+because required display-related environment variables are missing
+(e.g. `DISPLAY`, `WAYLAND_DISPLAY`, `XDG_RUNTIME_DIR`).
+
+This fork introduces an additional launcher script (`toolbox-app.py`)
+that:
+
+- preserves the host display context
+- supports both X11 and Wayland
+- allows passing arbitrary arguments to the application
+
+## About toolbox-export
+
 Script for exporting applications from toolbox or any other containers.
 
-It's exporting .desktop files to `~/.local/share/applicatios` and app icons to `~/.local/share/icons`
+It exports `.desktop` files to `~/.local/share/applications`
+and application icons to `~/.local/share/icons`.
 
 ## Install
-Make sure you have `~/.local/bin` in your `PATH` and `curl` is installed.
+
+Clone the repository and run install script:
+
 ```bash
-curl https://raw.githubusercontent.com/mrvladus/toolbox-export/main/toolbox-export.py --create-dirs -o ~/.local/bin/toolbox-export && chmod +x ~/.local/bin/toolbox-export
+git clone https://github.com/Artem891372/toolbox-export.git
+cd toolbox-export
+./install.sh
 ```
+Make sure ~/.local/bin is in your PATH.
 
 ## Usage
 
-Enter the container. For toolbox run:
+Enter the container:
 ```bash
 toolbox enter
 ```
@@ -19,7 +49,7 @@ Run command:
 ```bash
 toolbox-export APP
 ```
-For example, if you want to export VSCode run:
+For example, to export VSCode:
 ```bash
 toolbox-export code
 ```
