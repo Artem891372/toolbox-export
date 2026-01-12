@@ -74,7 +74,7 @@ def export() -> None:
                                 name = l.split("=")[1].strip().replace('"', "")
                                 break
                     text += line.replace(
-                        "Exec=", f"Exec=/usr/bin/toolbox run -c {name} "
+                        "Exec=", f"Exec=toolbox-app {name} "
                     )
                 elif line.startswith("Name="):
                     text += line.replace("\n", " (toolbox)\n")
